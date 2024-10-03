@@ -1,0 +1,31 @@
+---
+output:
+  word_document: default
+  html_document: default
+  html_notebook: default
+---
+
+
+```{r}
+install.packages("polyglotr")
+install.packages(c("tidytext", "dplyr", "pdftools", "readr"))
+library(polyglotr)
+library(pdftools)
+
+```
+
+```{r}
+# Load PDF and extract   text
+pdf_file <- "Data/korean_text.pdf"
+data <- pdf_text(pdf_file)
+
+# Convert complete text data into a single string
+text_data <- paste(data, collapse = " ")
+
+print(text_data)
+```
+
+```{r}
+translation_google <- google_translate(text_data, target_language = "en", source_language = "ko")
+cat(translation_google)
+```
